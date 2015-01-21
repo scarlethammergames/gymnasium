@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: e813e8c0b8ac3284a9768f1e4b9c0e7d
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - empPrefab: {fileID: 100000, guid: 649017ffc43575a429ee432a481fdb9e, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
