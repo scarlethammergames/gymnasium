@@ -8,6 +8,7 @@ public class SingularityBehaviour : MonoBehaviour
   public float singularityBlownRadiusMultiplier = 50.0f;
   public float singularityTravellingRadiusMultiplier = .1f;
   public float singularityBlownTimeMultiplier = 5.0f;
+  public float chargeSpeedMultiplier = 0.2f;
   public float gravitational_constant = 0.02f;
   public bool blowOnContact = true;
   public float speed = 10f;
@@ -15,11 +16,12 @@ public class SingularityBehaviour : MonoBehaviour
   float time;
   float blowTime;
   bool blown;
+  bool held;
 
   // Use this for initialization
   void Start()
   {
-    Debug.Log("Starting");
+    singularityPower = 0.1f;
     time = 0.0f;
     blown = false;
     blowTime = singularityPower * singularityBlownTimeMultiplier;
@@ -32,11 +34,22 @@ public class SingularityBehaviour : MonoBehaviour
     blown = true;
   }
 
-  // Update is called once per frame
   void FixedUpdate()
   {
     time += Time.deltaTime;
-    if (!blown)
+    if (held)
+    {
+      if (Input.GetMouseButton(0))
+      {
+        singularityPower = time * chargeSpeedMultiplier;
+      }
+      else
+      {
+        held = false;
+        return;
+      }
+    }
+    else if (!blown)
     {
       this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, this.gameObject.transform.position + this.gameObject.transform.forward * speed, Time.deltaTime);
       if (time > blowTime)
@@ -58,7 +71,7 @@ public class SingularityBehaviour : MonoBehaviour
   {
     if (other.rigidbody != null)
     {
-      if(other.CompareTag("Player"))
+      if (other.CompareTag("Player"))
       {
         return;
       }
