@@ -29,6 +29,5 @@ public class MainMenu : MonoBehaviour
     GUILayout.BeginHorizontal();
     GUILayout.Space(10);
     scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.Width(400));
-
   }
 }
