@@ -12,7 +12,10 @@ public class attachToSurface : MonoBehaviour {
 	public LayerMask layerMask; //Layers for raycast to detect.
 	
 	public float rotationMultiplier;
+	public Vector3 rotationOffset; 
 	public float positionSmoothing = 1.0f;
+
+	public bool attachToTriangle = false;
 	
 	public struct Triangle{
 		public Vector3 position;
@@ -34,17 +37,23 @@ public class attachToSurface : MonoBehaviour {
 	void attach(){
 		RaycastHit hit; 
 		//Check for water surface below transform position
-		if ( Physics.Raycast( transform.position, -Vector3.up, out hit, 500.0f, layerMask ) ) { 
-			m_hitTriangle = updateTriangleHit( hit, m_hitTriangle );
-			surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, m_hitTriangle.position, positionSmoothing*Time.deltaTime);
-			surfaceObject.transform.eulerAngles = m_hitTriangle.normal * rotationMultiplier;
-			Debug.Log("Tri:" + m_hitTriangle.position);
-			//			displaySurfaceRays( hit );
+		if ( Physics.Raycast( transform.position, -transform.up, out hit, 500.0f, layerMask ) ) { 
+			if(attachToTriangle){
+				m_hitTriangle = updateTriangleHit( hit, m_hitTriangle );
+				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, m_hitTriangle.position, positionSmoothing*Time.deltaTime);
+				surfaceObject.transform.eulerAngles = m_hitTriangle.normal * rotationMultiplier;
+				Debug.Log("Tri:" + m_hitTriangle.position);
+				displaySurfaceRays( hit );
+			}
+			else{
+				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, hit.point, positionSmoothing*Time.deltaTime);
+				surfaceObject.transform.eulerAngles = (hit.normal + rotationOffset)* rotationMultiplier;
+				displaySurfaceRays( hit );
+			}
 		}
 	}
 	
 	void displaySurfaceRays(RaycastHit hit){
-		Debug.Log("Displaying");
 		Vector3 incomingVec = hit.point - transform.position;
 		Vector3 reflectVec = Vector3.Reflect(incomingVec, hit.normal);
 		//Debugging
