@@ -38,7 +38,7 @@ public class CollisionForce : MonoBehaviour {
 			{
 				if (hit && hit.rigidbody){
 					ForceConditions fc = (ForceConditions) hit.GetComponent(typeof(ForceConditions));
-					if(fc.canPull()){
+					if(fc && fc.canPull()){
 						hit.rigidbody.AddForce(( this.transform.position - hit.transform.position)*magnitude, ForceMode.Impulse);
 					}
 				}
@@ -64,7 +64,7 @@ public class CollisionForce : MonoBehaviour {
 			{
 				if (hit && hit.rigidbody){
 					ForceConditions fc = (ForceConditions) hit.GetComponent(typeof(ForceConditions));
-					if(fc.canPush()){
+					if(fc && fc.canPush()){
 						hit.rigidbody.AddForce(Vector3.up * magnitude, ForceMode.Impulse);
 						hit.GetComponent<ForceConditions>().pullable = true;
 					}
