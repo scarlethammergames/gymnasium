@@ -24,30 +24,29 @@ public class fireProjectile: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.LeftShift)){
-			trajectory = Vector3.forward/10;
-			style = TrajectoryType.Straight;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
-			Fire();
-		}
-		else if(Input.GetKeyDown(KeyCode.LeftControl)){
-			trajectory = (Vector3.forward / Mathf.Max(0, lobDampener) ) + (Vector3.up / Mathf.Max(0, lobDampener) );
-			style = TrajectoryType.Lob;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
-			Fire();
-		}
-		else if (Input.GetButtonDown("Fire1")){
+		if (Input.GetAxisRaw("Fire3") > 0 && Input.GetButtonDown("Fire1")){
 			trajectory = Vector3.forward;
 			style = TrajectoryType.Straight;
 			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Push;
 			Fire();
 		}
-		else if(Input.GetButtonDown("Fire2")){
+		else if(Input.GetAxisRaw("Fire3") < 0 && Input.GetButtonDown("Fire2")){
 			trajectory = (Vector3.forward / Mathf.Max(0, lobDampener) ) + (Vector3.up / Mathf.Max(0, lobDampener) );
 			style = TrajectoryType.Lob;
 			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Push;
 			Fire();
-
+		}
+		else if (Input.GetButtonDown("Fire1")){
+			trajectory = Vector3.forward/10;
+			style = TrajectoryType.Straight;
+			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
+			Fire();
+		}
+		else if(Input.GetButtonDown("Fire2")){
+			trajectory = (Vector3.forward / Mathf.Max(0, lobDampener) ) + (Vector3.up / Mathf.Max(0, lobDampener) );
+			style = TrajectoryType.Lob;
+			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
+			Fire();
 		}
 	}
 
