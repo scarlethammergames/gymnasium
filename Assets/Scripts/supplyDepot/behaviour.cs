@@ -26,6 +26,7 @@ public class behaviour : MonoBehaviour {
 		
 			sdB.updateSize (100);
 			this.transform.parent.transform.localScale += (Vector3.up * 0.1f);
+			Destroy( other.gameObject );
 		
 		}
 

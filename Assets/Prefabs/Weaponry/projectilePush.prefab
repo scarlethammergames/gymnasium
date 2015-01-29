@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a702856d979530429756c26bb6696dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _magnitudeBirth: 5
-  _magnitudeDeath: 5
+  _magnitudeBirth: 300
+  _magnitudeDeath: 300
   _magRatio: 1
-  _radiusBirth: 100
-  _radiusDeath: 100
+  _radiusBirth: 150
+  _radiusDeath: 150
   _radiusRatio: 1
   _maxDuration: 1000
   _forceType: 2

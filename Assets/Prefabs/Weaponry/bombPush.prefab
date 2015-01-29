@@ -99,14 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a702856d979530429756c26bb6696dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _magnitudeBirth: 20
-  _magnitudeDeath: 20
+  _magnitudeBirth: 600
+  _magnitudeDeath: 600
   _magRatio: 1
-  _radiusBirth: 20
-  _radiusDeath: 20
+  _radiusBirth: 100
+  _radiusDeath: 100
   _radiusRatio: 1
   _maxDuration: 1000
-  _forceType: 0
+  _forceType: 2
   debug: 1
 --- !u!135 &13588224
 SphereCollider:

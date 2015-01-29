@@ -23,11 +23,11 @@ public class ForceConditions : MonoBehaviour {
 		return pullable;
 	}
 
-	public bool setPushable( bool canPush ){
-		return pushable;
+	public void setPushable( bool canPush ){
+		pushable = canPush;
 	}
 	
-	public bool setPullable( bool canPull ){
-		return pullable;
+	public void setPullable( bool canPull ){
+		pullable = canPull;
 	}
 }

@@ -43,7 +43,7 @@ public class SupplyDepotBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log (currentSize);
+//		Debug.Log (currentSize);
 	
 	}
 }
