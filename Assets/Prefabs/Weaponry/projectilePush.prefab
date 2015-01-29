@@ -13,8 +13,9 @@ GameObject:
   - 23: {fileID: 2388224}
   - 54: {fileID: 5488224}
   - 114: {fileID: 11488224}
+  - 114: {fileID: 11457292}
   m_Layer: 0
-  m_Name: projectile
+  m_Name: projectilePush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,6 +75,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &11457292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00c2c45b068ccd40be654b3b35b3ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifespan: 25
+  decayRate: 1
 --- !u!114 &11488224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,10 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a702856d979530429756c26bb6696dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnitude: 150
-  radius: 20
-  lifespan: 100
-  forceType: 0
+  _magnitudeBirth: 5
+  _magnitudeDeath: 5
+  _magRatio: 1
+  _radiusBirth: 100
+  _radiusDeath: 100
+  _radiusRatio: 1
+  _maxDuration: 1000
+  _forceType: 2
+  debug: 1
 --- !u!135 &13588224
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -11,11 +11,14 @@ public class fireProjectile: MonoBehaviour {
 	public GameObject projectile;
 	public Vector3 offset;
 	public Vector3 trajectory = Vector3.forward;
+	public float magnitude = 50;
+	public float drag = 5;
+	public bool makeChild = false;
 
-	public enum TrajectoryType {Straight, Lob};
-	public TrajectoryType style = TrajectoryType.Straight;
-	public float power = 50;
-	public float lobDampener = 5;
+	public string inputName = "Fire1";
+
+//	public enum TrajectoryType {Straight, Lob, Drop, Attach};
+//	public TrajectoryType style = TrajectoryType.Straight;
 
 	// Use this for initialization
 	void Start () {
@@ -24,35 +27,17 @@ public class fireProjectile: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetAxisRaw("Fire3") > 0 && Input.GetButtonDown("Fire1")){
-			trajectory = Vector3.forward;
-			style = TrajectoryType.Straight;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Push;
-			Fire();
-		}
-		else if(Input.GetAxisRaw("Fire3") < 0 && Input.GetButtonDown("Fire2")){
-			trajectory = (Vector3.forward / Mathf.Max(0, lobDampener) ) + (Vector3.up / Mathf.Max(0, lobDampener) );
-			style = TrajectoryType.Lob;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Push;
-			Fire();
-		}
-		else if (Input.GetButtonDown("Fire1")){
-			trajectory = Vector3.forward/10;
-			style = TrajectoryType.Straight;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
-			Fire();
-		}
-		else if(Input.GetButtonDown("Fire2")){
-			trajectory = (Vector3.forward / Mathf.Max(0, lobDampener) ) + (Vector3.up / Mathf.Max(0, lobDampener) );
-			style = TrajectoryType.Lob;
-			projectile.GetComponent<CollisionForce>().forceType = CollisionForce.ForceType.Pull;
+		if ( Input.GetButtonDown( inputName ) ){
 			Fire();
 		}
 	}
 
 	void Fire(){
 		GameObject clone;
-		clone = Instantiate(projectile, transform.position + offset, transform.rotation) as GameObject;
-		clone.rigidbody.velocity = transform.TransformDirection(trajectory * power);
+		clone = Instantiate( projectile, transform.position + offset, transform.rotation ) as GameObject;
+		clone.rigidbody.velocity = transform.TransformDirection( trajectory * magnitude );
+		if( makeChild ){
+			clone.transform.parent = this.transform;
+		}
 	}
 }

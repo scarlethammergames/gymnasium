@@ -3,19 +3,21 @@
 using UnityEngine;
 using System.Collections;
 
-/**
-* The object that owns this script will raycast a set distance and detect the triangle intersected on the mesh.
-* The surfaceObject will use linear interpolation to attach to the hit triangle.
-*/
+/// <summary>
+/// The owner of this script will attach a given object to a surface detected by a Raycast.
+/// </summary>
 public class attachToSurface : MonoBehaviour {
 	public GameObject surfaceObject;
 	public LayerMask layerMask; //Layers for raycast to detect.
-	
+
+	public Vector3 positionOffset;
+	public float followSmoothing = 1.0f;
+
 	public float rotationMultiplier;
 	public Vector3 rotationOffset; 
-	public float positionSmoothing = 1.0f;
 
 	public bool attachToTriangle = false;
+	public bool spawnObjectOnStart = true;
 	
 	public struct Triangle{
 		public Vector3 position;
@@ -26,12 +28,16 @@ public class attachToSurface : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
+		if(spawnObjectOnStart){
+			spawnSurfaceObject();
+		}
 	}
 	
 	// Update is called once per frame
 	void Update() {
-		attach();
+		if( surfaceObject ){
+			attach();
+		}
 	}
 	
 	void attach(){
@@ -40,13 +46,13 @@ public class attachToSurface : MonoBehaviour {
 		if ( Physics.Raycast( transform.position, -transform.up, out hit, 500.0f, layerMask ) ) { 
 			if(attachToTriangle){
 				m_hitTriangle = updateTriangleHit( hit, m_hitTriangle );
-				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, m_hitTriangle.position, positionSmoothing*Time.deltaTime);
+				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, m_hitTriangle.position + positionOffset, followSmoothing*Time.deltaTime);
 				surfaceObject.transform.eulerAngles = m_hitTriangle.normal * rotationMultiplier;
 				Debug.Log("Tri:" + m_hitTriangle.position);
 				displaySurfaceRays( hit );
 			}
 			else{
-				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, hit.point, positionSmoothing*Time.deltaTime);
+				surfaceObject.transform.position = Vector3.Lerp( surfaceObject.transform.position, hit.point + positionOffset, followSmoothing*Time.deltaTime);
 				surfaceObject.transform.eulerAngles = (hit.normal + rotationOffset)* rotationMultiplier;
 				displaySurfaceRays( hit );
 			}
@@ -87,5 +93,9 @@ public class attachToSurface : MonoBehaviour {
 		hitTriangle.normal = Vector3.Cross(p1 - p0, p2 - p0);
 		Debug.DrawRay(hitTriangle.position, hitTriangle.normal);
 		return hitTriangle;
+	}
+
+	void spawnSurfaceObject(){
+		surfaceObject = Instantiate( surfaceObject, transform.position, transform.rotation ) as GameObject;
 	}
 }

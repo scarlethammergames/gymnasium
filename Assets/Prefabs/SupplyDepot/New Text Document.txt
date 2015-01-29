@@ -1,0 +1,1 @@
+-Supply Depot and External depot will add to resource if hit with object with tag "projectile"(case sensitive)
