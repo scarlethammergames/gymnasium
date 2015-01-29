@@ -22,7 +22,7 @@ public class behaviour : MonoBehaviour {
 		 * 
 		 *
 		 */
-		if(other.tag == "projectile"){
+		if(other.tag == "EnviroTile"){
 		
 			sdB.updateSize (100);
 			this.transform.parent.transform.localScale += (Vector3.up * 0.1f);
