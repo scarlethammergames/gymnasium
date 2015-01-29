@@ -58,12 +58,13 @@ public class CollisionForce : MonoBehaviour {
 						if( fc.canPush() ){
 							Vector3 direction = Vector3.Normalize( hit.transform.position - this.transform.position );
 							hit.rigidbody.AddForce( Vector3.ClampMagnitude( (magnitude/(direction.sqrMagnitude))*direction, _maxMagnitude ) , ForceMode.Impulse);
+							hit.GetComponent<ForceConditions>().setPullable(true);
 						}				
 						break;
 					case ForceType.Pull:
 						if( fc.canPull() ){
 							Vector3 direction = Vector3.Normalize( hit.transform.position - this.transform.position );
-							hit.rigidbody.AddForce( Vector3.ClampMagnitude( -1 * (magnitude/direction.sqrMagnitude)*direction, _maxMagnitude ) , ForceMode.Impulse);
+							hit.rigidbody.AddForce( Vector3.ClampMagnitude( -1 * (magnitude)*direction, _maxMagnitude ) , ForceMode.Impulse);
 						}		
 						break;
 					case ForceType.Lift:

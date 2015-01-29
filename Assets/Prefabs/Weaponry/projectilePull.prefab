@@ -17,7 +17,7 @@ GameObject:
   - 114: {fileID: 11499456}
   m_Layer: 0
   m_Name: projectilePull
-  m_TagString: Untagged
+  m_TagString: projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a702856d979530429756c26bb6696dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _magnitudeBirth: 20
-  _magnitudeDeath: 20
+  _magnitudeBirth: 150
+  _magnitudeDeath: 150
   _magRatio: 1
   _radiusBirth: 100
   _radiusDeath: 100
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00c2c45b068ccd40be654b3b35b3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifespan: 50
+  lifespan: 2
   decayRate: 1
 --- !u!135 &13588224
 SphereCollider:

@@ -16,7 +16,7 @@ GameObject:
   - 114: {fileID: 11457292}
   m_Layer: 0
   m_Name: projectilePush
-  m_TagString: Untagged
+  m_TagString: projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00c2c45b068ccd40be654b3b35b3ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifespan: 25
+  lifespan: 2
   decayRate: 1
 --- !u!114 &11488224
 MonoBehaviour:

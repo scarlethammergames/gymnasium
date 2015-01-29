@@ -37,13 +37,17 @@ public class Crosshair : MonoBehaviour {
 	[HideInInspector] public float spread;
 	[HideInInspector] public bool failAim;
 
+	//Variables for invalid crosshair
+	private double timer;
 	private float lastFail;//the time since the last invalid aim
-	
+	private bool blink;
 	void Start ()
 	{
 		crosshairPreset = preset.none;
 		failAim = false;
 		lastFail = 0.0f;
+		timer = 0;
+		blink = false;
 	}
 	
 	void Update()
@@ -56,7 +60,7 @@ public class Crosshair : MonoBehaviour {
 		rotAngle += rotSpeed * Time.deltaTime;
 	}
 	
-	void OnGUI(){
+	void OnGUI() {
 		Vector3 mousePosition = Input.mousePosition;
 //		Debug.Log ("Cursor: " + mousePosition);
 
@@ -105,12 +109,10 @@ public class Crosshair : MonoBehaviour {
 				if (lastFail > invalidAimTime) {
 					lastFail = 0.0f;
 					failAim = false;
-					Debug.Log ("RESET lastFail="+lastFail+", failAim="+failAim);
 				} else {
 					GUIUtility.RotateAroundPivot(rotAngle%360,pivot);
 					//Paint crosshair the invalid texture color
-					if (Time.frameCount%11==0) {
-						//To make the crosshair blink, only paint the crosshair every certain frame
+					if (blinkingCrosshair()) {
 						//Horizontal (top and bottom lines)
 						float invalidWidth = cWidth*3;
 						GUI.Box(new Rect(mousePosition.x - cWidth, (Screen.height- mousePosition.y)- spread- cLength, invalidWidth, cLength), temp, invalidT);
@@ -120,8 +122,14 @@ public class Crosshair : MonoBehaviour {
 						GUI.Box(new Rect(mousePosition.x + spread, (Screen.height- mousePosition.y)- cWidth, cLength, invalidWidth), temp, invalidT);
 					}
 				}
-				Debug.Log ("failAim="+failAim +". lastFail="+lastFail);
 			}
 		}
+	}
+	bool blinkingCrosshair() {
+		if (Time.time > timer) {
+			timer = Time.time + 0.1;
+			blink = !blink;
+		}
+		return blink;
 	}
 }
