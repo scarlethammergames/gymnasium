@@ -7,13 +7,6 @@ TagManager:
   - Dangerous
   - Smelly
   - Fire
-  - EnviroTile
-  - 
-  - 
-  - 
-  - SupplyDepot
-  - ResourcePopUp
-  - projectile
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -25,7 +18,7 @@ TagManager:
   Builtin Layer 7: 
   User Layer 8: Menu Items
   User Layer 9: Environment
-  User Layer 10: PushPull
+  User Layer 10: 
   User Layer 11: 
   User Layer 12: 
   User Layer 13: 
